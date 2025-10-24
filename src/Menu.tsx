@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Star } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 interface MenuItem {
   name: string;
   price: string;
-  image: string;
   description?: string;
   isVeg?: boolean;
 }
@@ -18,7 +17,7 @@ interface MenuProps {
 }
 
 const Menu: React.FC<MenuProps> = ({ onBack }) => {
-  const [activeCategory, setActiveCategory] = useState('All Items');
+  const [activeCategory, setActiveCategory] = useState('all');
   const [filterType, setFilterType] = useState('all'); // 'all', 'veg', 'non-veg'
 
   const handleBack = () => {
@@ -30,85 +29,205 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
   };
 
   const menuData: MenuData = {
-    breakfast: [
-      { name: 'Roti, Sabji', price: '80', image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Traditional Indian bread served with seasonal vegetables', isVeg: true },
-      { name: 'Puri, Sabji', price: '100', image: 'https://images.unsplash.com/photo-1631452180539-96aca7d48617?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Deep-fried bread with spiced vegetables', isVeg: true },
-      { name: 'Plain Paratha, Sabji', price: '120', image: 'https://images.unsplash.com/photo-1574653771117-7ce7a4b86ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Layered flatbread with mixed vegetables', isVeg: true },
-      { name: 'Aloo Paratha, Curd', price: '70', image: 'https://images.unsplash.com/photo-1630383249896-424e482df921?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Potato-stuffed paratha served with fresh yogurt', isVeg: true },
-      { name: 'Paneer Paratha, Achar', price: '80', image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Cottage cheese stuffed paratha with pickle', isVeg: true },
-      { name: 'Laccha Paratha, Achar', price: '40', image: 'https://images.unsplash.com/photo-1574653771117-7ce7a4b86ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Multi-layered paratha with pickle', isVeg: true },
-      { name: 'Keema Paratha, Achar', price: '90', image: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Minced meat stuffed paratha with pickle', isVeg: false },
-      { name: 'Omelette', price: '30', image: 'https://images.unsplash.com/photo-1608039829572-78524f79c4c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Classic egg omelette', isVeg: false },
-      { name: 'Masala Omelette', price: '50', image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Spiced omelette with onions and chilies', isVeg: false },
-      { name: 'French Toast', price: '150', image: 'https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Sweet bread soaked in egg and fried', isVeg: false },
-      { name: 'Egg Toast', price: '80', image: 'https://images.unsplash.com/photo-1525351326368-efbb5cb6814d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Toasted bread with egg', isVeg: false },
-      { name: 'Butter Toast', price: '60', image: 'https://images.unsplash.com/photo-1554520735-0a6b81e0d4a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Crispy toast with butter', isVeg: true },
-      { name: 'Banana Pancake', price: '180', image: 'https://images.unsplash.com/photo-1506084868230-bb9d95c24759?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Fluffy pancakes with fresh banana', isVeg: true },
-      { name: 'Chocolate Pancake', price: '200', image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Rich chocolate pancakes', isVeg: true },
-      { name: 'Plain Pancake', price: '150', image: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Classic fluffy pancakes', isVeg: true },
-      { name: 'Chicken Platter', price: '250', image: 'https://images.unsplash.com/photo-1598514983318-2f64c8cd3fc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Grilled chicken with sides', isVeg: false },
-      { name: 'Poha', price: '60', image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Traditional flattened rice dish', isVeg: true },
-      { name: 'Upma', price: '60', image: 'https://images.unsplash.com/photo-1621510456681-2330135e5871?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Savory semolina porridge', isVeg: true },
-      { name: 'Maggi', price: '50', image: 'https://images.unsplash.com/photo-1571197749437-4d30e23316f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Instant noodles', isVeg: true },
-      { name: 'Mix Veg Maggi', price: '80', image: 'https://images.unsplash.com/photo-1571197749437-4d30e23316f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Noodles with mixed vegetables', isVeg: true },
-      { name: 'Masala Maggi', price: '70', image: 'https://images.unsplash.com/photo-1571197749437-4d30e23316f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Spicy masala noodles', isVeg: true }
-    ],
-    
-    lunch: [
-      { name: 'Dal Rice', price: '130', image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Comfort food with lentils and rice', isVeg: true },
-      { name: 'Sambar Rice', price: '130', image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'South Indian rice with sambar', isVeg: true },
-      { name: 'Curd Rice', price: '90', image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Cooling rice with yogurt', isVeg: true },
-      { name: 'Plain Rice', price: '50', image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Steamed white rice', isVeg: true },
-      { name: 'Jeera Rice', price: '70', image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Cumin flavored rice', isVeg: true },
-      { name: 'Veg Fried Rice', price: '180', image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Colorful fried rice with mixed vegetables', isVeg: true },
-  { name: 'Chicken Fried Rice', price: '220', image: 'https://images.pexels.com/photos/3577563/pexels-photo-3577563.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&dpr=2', description: 'Wok-tossed rice with chicken and vegetables', isVeg: false },
-      { name: 'Egg Fried Rice', price: '200', image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Fried rice with scrambled eggs', isVeg: false },
-      { name: 'Veg Biryani', price: '200', image: 'https://images.unsplash.com/photo-1563379091339-03246963d51a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Aromatic rice with mixed vegetables and spices', isVeg: true },
-      { name: 'Chicken Biryani', price: '250', image: 'https://images.unsplash.com/photo-1563379091339-03246963d51a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Tender Chicken layered with fragrant Basmati Rice and slow-cooked with aromatic Spices, creating a rich and flavorful Biryani that\'s simply irresistible.', isVeg: false },
-      { name: 'Mutton Biryani', price: '300', image: 'https://images.unsplash.com/photo-1563379091339-03246963d51a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Premium mutton cooked with basmati rice', isVeg: false },
-      { name: 'Veg Pulao', price: '180', image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Fragrant rice with vegetables', isVeg: true },
-      { name: 'Chicken Pulao', price: '220', image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Aromatic rice with chicken', isVeg: false },
-      { name: 'Rajma Rice', price: '160', image: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Kidney beans curry with rice', isVeg: true },
-      { name: 'Chhole Rice', price: '160', image: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Chickpea curry with rice', isVeg: true },
-      { name: 'Paneer Butter Masala', price: '220', image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Creamy paneer in tomato-based gravy', isVeg: true },
-      { name: 'Dal Makhani', price: '180', image: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Rich and creamy black lentils', isVeg: true },
-      { name: 'Mix Veg', price: '160', image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Mixed seasonal vegetables', isVeg: true },
-      { name: 'Chicken Curry', price: '240', image: 'https://images.unsplash.com/photo-1598511757337-fe2cafc31ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Traditional chicken curry with aromatic spices', isVeg: false },
-      { name: 'Mutton Curry', price: '300', image: 'https://images.unsplash.com/photo-1598511757337-fe2cafc31ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Tender mutton in rich, spiced gravy', isVeg: false },
-      { name: 'Fish Curry', price: '280', image: 'https://images.unsplash.com/photo-1598511757337-fe2cafc31ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Fresh fish in traditional curry', isVeg: false }
-    ],
+  breakfast: [
+    { name: 'Roti Sabji', price: '80', isVeg: true },
+    { name: 'Puri Sabji', price: '100', isVeg: true },
+    { name: 'Plain Paratha Sabji', price: '120', isVeg: true },
+    { name: 'Aloo Paratha, Curd', price: '70', isVeg: true },
+    { name: 'Paneer Paratha, Achar', price: '80', isVeg: true },
+    { name: 'Laccha Paratha, Achar', price: '40', isVeg: true },
+    { name: 'Keema Paratha, Achar', price: '90', isVeg: false },
+    { name: 'Omelette', price: '30', isVeg: false },
+    { name: 'Masala Omelette', price: '50', isVeg: false },
+    { name: 'French Toast', price: '150', isVeg: false },
+    { name: 'Egg Toast', price: '80', isVeg: false },
+    { name: 'Butter Toast', price: '60', isVeg: true },
+    { name: 'Banana Pancake', price: '180', isVeg: true },
+    { name: 'Chocolate Pancake', price: '200', isVeg: true },
+    { name: 'Plain Pancake', price: '150', isVeg: true },
+  ],
 
-    dinner: [
-      { name: 'Roti', price: '15', image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Traditional whole wheat bread', isVeg: true },
-      { name: 'Butter Roti', price: '20', image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Roti with butter', isVeg: true },
-      { name: 'Butter Naan', price: '50', image: 'https://images.unsplash.com/photo-1574653771117-7ce7a4b86ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Soft leavened bread with butter', isVeg: true },
-      { name: 'Garlic Naan', price: '60', image: 'https://images.unsplash.com/photo-1574653771117-7ce7a4b86ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Naan topped with fresh garlic', isVeg: true },
-      { name: 'Laccha Paratha', price: '40', image: 'https://images.unsplash.com/photo-1574653771117-7ce7a4b86ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Multi-layered flaky paratha', isVeg: true },
-      { name: 'Plain Paratha', price: '30', image: 'https://images.unsplash.com/photo-1574653771117-7ce7a4b86ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Simple layered flatbread', isVeg: true },
-      { name: 'Hakka Noodles', price: '180', image: 'https://images.unsplash.com/photo-1555126634-323283e090fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Stir-fried noodles with vegetables', isVeg: true },
-      { name: 'Chicken Hakka Noodles', price: '220', image: 'https://images.unsplash.com/photo-1555126634-323283e090fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Hakka noodles with chicken', isVeg: false },
-      { name: 'Schezwan Noodles', price: '200', image: 'https://images.unsplash.com/photo-1555126634-323283e090fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Spicy schezwan flavored noodles', isVeg: true },
-      { name: 'Chicken Schezwan Noodles', price: '240', image: 'https://images.unsplash.com/photo-1555126634-323283e090fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Spicy noodles with chicken', isVeg: false },
-      { name: 'Chilli Chicken', price: '280', image: 'https://images.unsplash.com/photo-1598514983318-2f64c8cd3fc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Indo-Chinese style spicy chicken', isVeg: false },
-      { name: 'Chicken Manchurian', price: '280', image: 'https://images.unsplash.com/photo-1598514983318-2f64c8cd3fc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Chicken in sweet and sour sauce', isVeg: false },
-      { name: 'Veg Manchurian', price: '220', image: 'https://images.unsplash.com/photo-1574653771117-7ce7a4b86ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Vegetable balls in manchurian sauce', isVeg: true },
-      { name: 'Paneer Chilli', price: '250', image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Spicy paneer with bell peppers', isVeg: true },
-      { name: 'Gobi Chilli', price: '200', image: 'https://images.unsplash.com/photo-1574653771117-7ce7a4b86ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Spicy cauliflower dish', isVeg: true },
-      { name: 'Mixed Fried Rice', price: '240', image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Fried rice with mixed ingredients', isVeg: false },
-      { name: 'Triple Rice', price: '280', image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Special rice with triple flavors', isVeg: false },
-      { name: 'Chicken 65', price: '300', image: 'https://images.unsplash.com/photo-1598514983318-2f64c8cd3fc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Spicy deep-fried chicken appetizer', isVeg: false },
-      { name: 'Chicken Lollipop', price: '320', image: 'https://images.unsplash.com/photo-1598514983318-2f64c8cd3fc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Chicken drumsticks in lollipop style', isVeg: false },
-      { name: 'Fish Fry', price: '280', image: 'https://images.unsplash.com/photo-1544943910-4c1dc44aab44?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Crispy fried fish', isVeg: false },
-      { name: 'Prawns Fry', price: '350', image: 'https://images.unsplash.com/photo-1544943910-4c1dc44aab44?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80', description: 'Delicious fried prawns', isVeg: false }
-    ]
+  soup: [
+    { name: 'Chicken Soup', price: '150', isVeg: false },
+    { name: 'Chicken Hot and Sour', price: '180', isVeg: false },
+    { name: 'Veg Soup', price: '120', isVeg: true },
+  ],
+
+  sandwich: [
+    { name: 'Cheese Sandwich', price: '150', isVeg: true },
+    { name: 'Chilly Cheese Sandwich', price: '180', isVeg: true },
+    { name: 'Chicken Cheese Sandwich', price: '200', isVeg: false },
+    { name: 'BBQ Chicken Sandwich', price: '220', isVeg: false },
+    { name: 'Paneer Sandwich', price: '200', isVeg: true },
+    { name: 'BBQ Paneer Sandwich', price: '220', isVeg: true },
+  ],
+
+  meals: [
+    { name: 'Veg Thali', price: '220', isVeg: true },
+    { name: 'Chicken Thali', price: '250', isVeg: false },
+    { name: 'Nepali Chicken Thali', price: '280', isVeg: false },
+    { name: 'Omelette Thali', price: '280', isVeg: false },
+    { name: 'Fish Thali', price: '300', isVeg: false },
+    { name: 'Veg Fried Rice', price: '150', isVeg: true },
+    { name: 'Mixed Fried Rice', price: '220', isVeg: false },
+    { name: 'Chicken Fried Rice', price: '200', isVeg: false },
+    { name: 'Jeera Rice', price: '140', isVeg: true },
+    { name: 'Plain Rice Half', price: '60', isVeg: true },
+    { name: 'Plain Rice Full', price: '120', isVeg: true },
+    { name: 'Roti', price: '20', isVeg: true },
+    { name: 'Butter Roti', price: '30', isVeg: true },
+  ],
+
+  noodlesThukpa: [
+    { name: 'Veg Chow', price: '150', isVeg: true },
+    { name: 'Chicken Chow', price: '200', isVeg: false },
+    { name: 'Egg Chow', price: '180', isVeg: false },
+    { name: 'Mixed Chow', price: '220', isVeg: false },
+    { name: 'Veg Thukpa', price: '150', isVeg: true },
+    { name: 'Maggie', price: '60', isVeg: true },
+    { name: 'Veg Maggie', price: '80', isVeg: true },
+    { name: 'Egg Maggie', price: '100', isVeg: false },
+    { name: 'Mixed Maggie', price: '120', isVeg: false },
+    { name: 'Veg Cheese Maggie', price: '150', isVeg: true },
+    { name: 'Hot Soup Wai Wai', price: '80', isVeg: true },
+    { name: 'Egg Wai Wai', price: '100', isVeg: false },
+    { name: 'Korean Chicken Ramen', price: '240', isVeg: false },
+    { name: 'Korean Veg Ramen', price: '200', isVeg: true },
+  ],
+
+  drinksCoffeeTea: [
+    { name: 'Black Tea', price: '20', isVeg: true },
+    { name: 'Milk Tea', price: '30', isVeg: true },
+    { name: 'Hot Lemon Honey Tea', price: '70', isVeg: true },
+    { name: 'Ginger Lemon Honey Tea', price: '90', isVeg: true },
+    { name: 'Ginger Tea', price: '40', isVeg: true },
+    { name: 'Milk Coffee', price: '60', isVeg: true },
+    { name: 'Black Coffee', price: '50', isVeg: true },
+    { name: 'Peach Ice Tea', price: '100', isVeg: true },
+    { name: 'Lemon Ice Tea', price: '100', isVeg: true },
+    { name: 'Lime Soda', price: '100', isVeg: true },
+    { name: 'Chocolate Milkshake', price: '100', isVeg: true },
+    { name: 'Oreo Milkshake', price: '120', isVeg: true },
+    { name: 'Cold Coffee', price: '100', isVeg: true },
+    { name: 'Virgin Mojito', price: '100', isVeg: true },
+  ],
+
+  cravesMore: [
+    { name: 'Dal Fry', price: '120', isVeg: true },
+    { name: 'Aloo Jeera', price: '120', isVeg: true },
+    { name: 'Chicken Curry', price: '200', isVeg: false },
+    { name: 'Chicken Chilly Dry', price: '220', isVeg: false },
+    { name: 'Chicken Chilly Gravy', price: '250', isVeg: false },
+    { name: 'Paneer Chilly', price: '220', isVeg: true },
+    { name: 'Matar Paneer', price: '250', isVeg: true },
+    { name: 'Chicken Sadheko', price: '220', isVeg: false },
+    { name: 'Aloo Bhaji', price: '100', isVeg: true },
+    { name: 'Fish Fry', price: '120', isVeg: false },
+    { name: 'Fish Curry', price: '180', isVeg: false },
+  ]
+};
+
+  const menuItemDescriptions: Record<string, string> = {
+    'Roti Sabji': 'Soft rotis served with homestyle vegetable curry.',
+    'Puri Sabji': 'Crisp, puffed puris paired with spiced potato sabji.',
+    'Plain Paratha Sabji': 'Golden paratha folded around comforting seasonal sabji.',
+    'Aloo Paratha, Curd': 'Stuffed aloo paratha finished with chilled curd.',
+    'Paneer Paratha, Achar': 'Paneer-stuffed paratha with tangy house pickle.',
+    'Laccha Paratha, Achar': 'Flaky laccha paratha served alongside spicy achar.',
+    'Keema Paratha, Achar': 'Hearty keema filling wrapped in buttery paratha.',
+    Omelette: 'Classic two-egg omelette cooked soft and fluffy.',
+    'Masala Omelette': 'Onion and chilli masala omelette with fresh herbs.',
+    'French Toast': 'Cinnamon-kissed French toast with sweet drizzle.',
+    'Egg Toast': 'Buttered toast topped with seasoned fried egg.',
+    'Butter Toast': 'Warm toast brushed generously with butter.',
+    'Banana Pancake': 'Caramelised banana pancake dusted with sugar.',
+    'Chocolate Pancake': 'Rich cocoa pancake with velvety chocolate notes.',
+    'Plain Pancake': 'Fluffy pancake finished with a touch of honey.',
+    'Chicken Soup': 'Slow-simmered chicken broth with warming spices.',
+    'Chicken Hot and Sour': 'Bold chicken soup balancing heat and tang.',
+    'Veg Soup': 'Fresh vegetable soup brightened with herbs.',
+    'Cheese Sandwich': 'Melted cheese tucked inside toasted bread.',
+    'Chilly Cheese Sandwich': 'Cheesy toast with green chilli zing.',
+    'Chicken Cheese Sandwich': 'Roasted chicken and cheese on griddled bread.',
+    'BBQ Chicken Sandwich': 'Smoky BBQ chicken layered in a soft bun.',
+    'Paneer Sandwich': 'Paneer cubes tossed in spices and crisp veggies.',
+    'BBQ Paneer Sandwich': 'Charred paneer with BBQ glaze in a toasted sandwich.',
+    'Veg Thali': 'Complete vegetarian platter with dal, sabji, and rice.',
+    'Chicken Thali': 'Nepali-style chicken curry thali with accompaniments.',
+  'Nepali Chicken Thali': 'Traditional Nepali chicken thali with rice, gundruk, achar, and seasonal sides.',
+    'Omelette Thali': 'Protein-packed omelette served with thali sides.',
+    'Fish Thali': 'Regional fish curry thali with traditional condiments.',
+    'Veg Fried Rice': 'Wok-tossed rice with garden vegetables and soy.',
+    'Mixed Fried Rice': 'Rice tossed with chicken, egg, and crunchy veggies.',
+    'Chicken Fried Rice': 'Smoky fried rice loaded with diced chicken.',
+    'Jeera Rice': 'Fragrant basmati tempered with cumin seeds.',
+    'Plain Rice Half': 'Steamed basmati served in a light portion.',
+    'Plain Rice Full': 'Generous helping of fluffy steamed basmati.',
+    Roti: 'Whole wheat roti cooked on a hot tawa.',
+    'Butter Roti': 'Tawa roti brushed with melting butter.',
+    'Veg Chow': 'Street-style veg chowmein with crunchy greens.',
+    'Chicken Chow': 'Stir-fried noodles loaded with chicken strips.',
+    'Egg Chow': 'Egg-tossed noodles with pepper and scallions.',
+    'Mixed Chow': 'Noodles featuring chicken, egg, and vegetables.',
+    'Veg Thukpa': 'Brothy veg thukpa with handmade noodles.',
+    Maggie: 'Comforting masala Maggi cooked café style.',
+    'Veg Maggie': 'Vegetable-loaded Maggi with house spices.',
+    'Egg Maggie': 'Maggi noodles topped with scrambled egg.',
+    'Mixed Maggie': 'Maggi infused with chicken, egg, and veggies.',
+    'Veg Cheese Maggie': 'Cheesy Maggi with sautéed vegetables.',
+    'Hot Soup Wai Wai': 'Steaming Wai Wai noodles in spiced broth.',
+    'Egg Wai Wai': 'Egg-finished Wai Wai with chilli oil.',
+    'Korean Chicken Ramen': 'Spicy Korean ramen crowned with chicken.',
+    'Korean Veg Ramen': 'Gochujang-inspired ramen with crisp veggies.',
+    'Black Tea': 'Robust black tea brewed the traditional way.',
+    'Milk Tea': 'Creamy milk tea simmered with Assam leaves.',
+    'Hot Lemon Honey Tea': 'Soothing lemon tea sweetened with wild honey.',
+    'Ginger Lemon Honey Tea': 'Ginger-forward tea layered with lemon and honey.',
+    'Ginger Tea': 'Spicy ginger brew perfect for cool evenings.',
+    'Milk Coffee': 'Milky filter-style coffee with toasted notes.',
+    'Black Coffee': 'Bold black coffee for a pure caffeine kick.',
+    'Peach Ice Tea': 'Chilled peach iced tea with fruity finish.',
+    'Lemon Ice Tea': 'Bright lemon iced tea with gentle sweetness.',
+    'Lime Soda': 'Sparkling lime soda with a pinch of salt.',
+    'Chocolate Milkshake': 'Thick chocolate shake blended with ice cream.',
+    'Oreo Milkshake': 'Creamy Oreo shake with crunchy crumbs.',
+    'Cold Coffee': 'Iced coffee shaken with milk and sugar.',
+    'Virgin Mojito': 'Mint-lime refresher topped with soda.',
+    'Dal Fry': 'Tempered yellow dal finished with ghee.',
+    'Aloo Jeera': 'Potatoes tossed with roasted cumin and chilli.',
+    'Chicken Curry': 'Slow-cooked chicken curry with homestyle gravy.',
+    'Chicken Chilly Dry': 'Crisp chicken bites glazed in chilli sauce.',
+    'Chicken Chilly Gravy': 'Saucy chilli chicken perfect with fried rice.',
+    'Paneer Chilly': 'Paneer cubes wok-tossed in Indo-Chinese spices.',
+    'Matar Paneer': 'Paneer and peas simmered in tomato-onion gravy.',
+    'Chicken Sadheko': 'Nepali-style shredded chicken with mustard oil.',
+    'Aloo Bhaji': 'Spiced baby potatoes finished with coriander.',
+    'Fish Fry': 'Shallow-fried fish coated in house masala.',
+    'Fish Curry': 'Tangy fish curry with coastal-style spices.'
   };
 
   const categories = [
-    'All Items',
-    'Breakfast',
-    'Lunch',
-    'Dinner'
+    { key: 'all', label: 'All Items' },
+    { key: 'breakfast', label: 'Breakfast' },
+    { key: 'soup', label: 'Soup' },
+    { key: 'sandwich', label: 'Sandwich' },
+    { key: 'meals', label: 'Meals' },
+    { key: 'noodlesThukpa', label: 'Noodles & Thukpa' },
+    { key: 'drinksCoffeeTea', label: 'Drinks, Coffee & Tea' },
+    { key: 'cravesMore', label: 'Craves More' }
   ];
+
+  const handleCategoryChange = (categoryKey: string) => {
+    setActiveCategory(categoryKey);
+    setFilterType('all');
+  };
+
+  const getItemDescription = (item: MenuItem) => {
+    if (item.description) {
+      return item.description;
+    }
+    return menuItemDescriptions[item.name] || `Signature ${item.name} prepared fresh at Velvet & Vine with our trusted flavors.`;
+  };
 
   const getAllItems = () => {
     let allItems: (MenuItem & { category: string })[] = [];
@@ -121,9 +240,9 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
   };
 
   const getFilteredItems = () => {
-    let items = activeCategory === 'All Items' 
-      ? getAllItems() 
-      : menuData[activeCategory.toLowerCase()] || [];
+    let items = activeCategory === 'all'
+      ? getAllItems()
+      : menuData[activeCategory] || [];
 
     if (filterType === 'veg') {
       items = items.filter(item => item.isVeg);
@@ -134,12 +253,8 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
     return items;
   };
 
-  const formatCategoryName = (category: string) => {
-    return category.charAt(0).toUpperCase() + category.slice(1);
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50" style={{
+  <div className="min-h-screen bg-gray-50" style={{
       fontFamily: '"Inter", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif'
     }}>
       {/* Header */}
@@ -176,19 +291,52 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
                 </div>
                 <div>
                   <p className="text-red-500 text-sm font-semibold">Call Now</p>
-                  <div className="text-sm font-medium">
-                    <a href="tel:+8260506650" className="hover:text-red-400 transition-colors duration-300">
+                  <div className="text-sm font-medium space-y-0.5">
+                    <a href="tel:+918260506650" className="block hover:text-red-400 transition-colors duration-300">
                       +91-8260506650
+                    </a>
+                    <a href="tel:+917029252941" className="block hover:text-red-400 transition-colors duration-300">
+                      +91-7029252941
                     </a>
                   </div>
                 </div>
               </div>
               
-              <button className="bg-red-600 hover:bg-red-700 text-black px-6 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
-                Order Now
-              </button>
+              <a
+                href="https://wa.me/917029252941?text=Hi%20Velvet%20%26%20Vine%2C%20I%27d%20like%20to%20place%20an%20order."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+              >
+                Order via WhatsApp
+              </a>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Mobile contact & WhatsApp CTA */}
+      <div className="md:hidden bg-black text-white">
+        <div className="max-w-7xl mx-auto px-4 py-4 space-y-3">
+          <div>
+            <p className="text-red-500 text-sm font-semibold uppercase tracking-wide">Call Now</p>
+            <div className="text-sm font-medium space-y-0.5">
+              <a href="tel:+918260506650" className="block hover:text-red-400 transition-colors duration-300">
+                +91-8260506650
+              </a>
+              <a href="tel:+917029252941" className="block hover:text-red-400 transition-colors duration-300">
+                +91-7029252941
+              </a>
+            </div>
+          </div>
+          <a
+            href="https://wa.me/917029252941?text=Hi%20Velvet%20%26%20Vine%2C%20I%27d%20like%20to%20place%20an%20order."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center w-full bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
+          >
+            Order via WhatsApp
+          </a>
         </div>
       </div>
 
@@ -245,15 +393,15 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           {categories.map((category) => (
             <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
+              key={category.key}
+              onClick={() => handleCategoryChange(category.key)}
               className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                activeCategory === category
+                activeCategory === category.key
                 ? 'bg-yellow-600 text-white shadow-lg'
                 : 'bg-white text-gray-700 hover:bg-yellow-50 border border-gray-300'
               }`}
             >
-              {category}
+              {category.label}
             </button>
           ))}
         </div>
@@ -275,7 +423,9 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
             
             <div className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-                {activeCategory === 'All Items' ? 'All Menu Items' : formatCategoryName(activeCategory)}
+                {activeCategory === 'all'
+                  ? 'All Menu Items'
+                  : categories.find((category) => category.key === activeCategory)?.label || 'Menu Items'}
               </h2>
               
               <div className="space-y-1">
@@ -286,15 +436,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
                         {String(index + 1).padStart(2, '0')}.
                       </div>
                       
-                      <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      
-                      <div className="flex-1">
+                        <div className="flex-1">
                         <div className="flex items-center space-x-2 mb-1">
                           <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
                           {item.isVeg !== undefined && (
@@ -303,9 +445,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
                             </div>
                           )}
                         </div>
-                        {item.description && (
-                          <p className="text-sm text-gray-600">{item.description}</p>
-                        )}
+                        <p className="text-sm text-gray-600">{getItemDescription(item)}</p>
                       </div>
                     </div>
 

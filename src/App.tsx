@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Menu as MenuIcon, X, Instagram, Mail, Star, Coffee, Utensils, Phone, MapPin } from 'lucide-react';
+import { Menu as MenuIcon, X, Instagram, Mail, Star, Coffee, Utensils, Phone, MapPin, Plus, Minus } from 'lucide-react';
 import Menu from './Menu';
 
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showMenuPage, setShowMenuPage] = useState(false);
-  const [showTestimonialsManager, setShowTestimonialsManager] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeFaq, setActiveFaq] = useState<number | null>(0);
   
   const heroSlides = [
     {
@@ -22,8 +22,8 @@ function App() {
     },
     {
       image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
-      title: 'Nature Meets Indulgence',
-      subtitle: 'From Our Kitchen to Your Heart'
+      title: 'No. 1 Nepali Style Food Restaurant',
+      subtitle: 'Authentic Nepali & homely thali cuisine'
     }
   ];
 
@@ -41,21 +41,21 @@ function App() {
       name: 'David Rajput ',
       role: 'Founder',
       quote: 'Velvet & Vine is more than a restaurant—it\'s a community. We pour our hearts into every dish and every guest experience.',
-      image: 'https://randomuser.me/api/portraits/men/32.jpg'
+      
     },
     {
       id: '2',
       name: 'Barsha Bhandari',
       role: 'Co-Founder & Operations',
       quote: 'Our mission is to create a space where everyone feels welcome and every meal feels like home.',
-      image: 'https://randomuser.me/api/portraits/women/44.jpg'
+      
     },
     {
       id: '3',
       name:'P.Dhala',
       role: 'Marketing Manager',
       quote: 'The flavors, the ambiance, and the people—Velvet & Vine is a true labor of love.',
-      image: 'https://randomuser.me/api/portraits/men/31.jpg'
+      
     }
   ]);
 
@@ -110,12 +110,12 @@ function App() {
       image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
     },
     {
-      name: 'Murgh Lajawab Tikka (Chicken Tikka)',
-      price: '220.00',
-      rating: 4,
-      reviews: 20,
-      description: 'Relish our juicy Chicken Tikka, marinated in a unique blend of aromatic spices and grilled to perfection.',
-      image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+      name: 'Nepali Chicken Thali',
+      price: '240.00',
+      rating: 5,
+      reviews: 28,
+      description: 'Signature Velvet & Vine thali featuring aromatic rice, Nepali-style chicken curry, seasonal greens, pickles, and homemade condiments.',
+  image: 'https://images.unsplash.com/photo-1588644525273-f37b60d78512?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmVwYWxpJTIwZm9vZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600'
     },
     {
       name: 'Korean Chicken Ramen',
@@ -129,13 +129,45 @@ function App() {
 
   const menuItems = {
     breakfast: [
-      { name: 'Roti, Sabji', price: '80', image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
-      { name: 'Puri, Sabji', price: '100', image: 'https://images.unsplash.com/photo-1631452180539-96aca7d48617?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
-      { name: 'Plain Paratha, Sabji', price: '120', image: 'https://images.unsplash.com/photo-1574653771117-7ce7a4b86ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
-      { name: 'Aloo Paratha, Curd', price: '70', image: 'https://images.unsplash.com/photo-1630383249896-424e482df921?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' },
-      { name: 'Paneer Paratha, Achar', price: '80', image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80' }
+      { name: 'Roti, Sabji', price: '80' },
+      { name: 'Puri, Sabji', price: '100' },
+      { name: 'Plain Paratha, Sabji', price: '120' },
+      { name: 'Aloo Paratha, Curd', price: '70' },
+      { name: 'Paneer Paratha, Achar', price: '80' }
     ]
   };
+
+  const breakfastSubtitles = [
+    'Flaky rotis paired with a spiced morning sabji.',
+    'Golden puris served with homestyle potato curry.',
+    'Buttery paratha layered with seasonal vegetable masala.',
+    'Stuffed aloo paratha balanced with cooling curd.',
+    'Paneer-filled paratha brightened with tangy achar.'
+  ];
+
+  const faqs = [
+    {
+      question: 'Why is Velvet & Vine a favourite in Siliguri?',
+      answer: 'We blend soulful Nepali-style thalis with homely service, so every visit feels like sharing a meal with family. Guests love our cozy ambience, curated playlists, and lovingly cooked comfort food.'
+    },
+    {
+      question: 'Can I book Velvet & Vine for intimate celebrations?',
+      answer: 'Yes! Reach us on call or WhatsApp and we will arrange a private corner with décor, custom music, and a menu tailored to birthdays, anniversaries, or corporate dinners.'
+    },
+    {
+      question: 'Do you serve vegetarian or vegan friendly dishes?',
+      answer: 'Definitely. Our menu features vegetarian thalis, plant-forward snacks, and we gladly adapt recipes to suit vegan preferences when informed in advance.'
+    },
+    {
+      question: 'Does Velvet & Vine offer takeaway or delivery?',
+      answer: 'We prepare fresh takeaway boxes daily and coordinate delivery through reliable partners. Message us on WhatsApp to arrange doorstep delivery or quick pickup.'
+    }
+  ];
+
+  const toggleFaq = (index: number) => {
+    setActiveFaq(prev => (prev === index ? null : index));
+  };
+
 
   const navLinks = [
     { name: 'Home', href: '#home' },
@@ -161,25 +193,16 @@ function App() {
     <div className="relative min-h-screen bg-white font-inter" style={{
       fontFamily: '"Inter", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif'
     }}>
-      {/* Admin Button - Hidden in top right */}
-      <button
-        onClick={() => setShowTestimonialsManager(true)}
-        className="fixed top-24 right-4 z-50 bg-gray-800 text-white px-4 py-2 rounded-lg opacity-10 hover:opacity-100 transition-opacity text-xs"
-        title="Manage Testimonials"
-      >
-        Admin
-      </button>
-
       {/* Top Bar with Opening Hours and Address */}
       <div className="bg-black text-white py-2 px-4 text-xs md:text-sm">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
           <div className="flex items-center space-x-2">
             <span className="text-red-500 font-semibold">Opening Hour:</span>
-            <span>11.00 AM to 11.00 PM</span>
+            <span>06.00 AM to 09.00 PM</span>
           </div>
           <div className="flex items-center space-x-2 text-center md:text-left">
             <MapPin size={14} className="text-red-500 flex-shrink-0" />
-            <span className="text-xs md:text-sm">Salugarh, Siliguri, West Bengal 734008, India</span>
+            <span className="text-xs md:text-sm">4th Floor, Home Square, near Salugara Monastery, Salugarh, Siliguri, West Bengal</span>
           </div>
         </div>
       </div>
@@ -189,11 +212,13 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-3">
-              <img
-                src="/M2sKshMbSqqkTuxP2bVeBQ.webp"
-                alt="Velvet & Vine Restaurant"
-                className="h-16 w-auto"
-              />
+              <div className="h-16 w-16 rounded-full overflow-hidden border-2 border-white/30 bg-white/10 shadow-md flex items-center justify-center">
+                <img
+                  src="/M2sKshMbSqqkTuxP2bVeBQ.webp"
+                  alt="Velvet & Vine Restaurant"
+                  className="h-full w-full object-cover"
+                />
+              </div>
             </div>
 
             <div className="hidden md:flex space-x-8">
@@ -208,39 +233,56 @@ function App() {
               ))}
             </div>
 
-          <div className="flex items-center space-x-4">
-      {/* Call Details */}
-      <div className="hidden lg:flex items-center space-x-3">
-    <div className="flex items-center space-x-2 text-white">
-      <div className="bg-red-500 p-2 rounded-full">
-        <Phone size={20} className="text-black" />
-      </div>
-      <div>
-        <p className="text-red-500 text-xs font-semibold">Call Now</p>
-        <div className="text-sm font-medium">
-          <a href="tel:+918260506650" className="hover:text-red-500 transition-colors duration-300">
-            +91-8260506650
-
+            <div className="flex items-center space-x-4">
+              {/* Call Details */}
+              <div className="hidden lg:flex items-center space-x-3">
+                <div className="flex items-center space-x-2 text-white">
+                  <div className="bg-red-500 p-2 rounded-full">
+                    <Phone size={20} className="text-black" />
+                  </div>
+                  <div>
+                    <p className="text-red-500 text-xs font-semibold">Call Now</p>
+                    <div className="text-sm font-medium space-y-1">
+                      <a href="tel:+918260506650" className="block hover:text-red-500 transition-colors duration-300">
+                        +91-8260506650
+                      </a>
+                      <a href="tel:+917029252941" className="block hover:text-red-500 transition-colors duration-300">
+                        +91-7029252941
                       </a>
                     </div>
                   </div>
                 </div>
               </div>
 
-            {/* Order Now Button */}
-           <button className="hidden lg:block bg-red-600 hover:bg-red-700 text-black px-6 py-2 rounded-lg font-bold transition-all duration-300 transform hover:scale-105">
-      Order Now
-</button>
+              {/* Order Now Button */}
+              <a
+                href="https://wa.me/917029252941?text=Hi%20Velvet%20%26%20Vine%2C%20I%27d%20like%20to%20place%20an%20order."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden lg:block bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold transition-all duration-300 transform hover:scale-105"
+              >
+                Order Now
+              </a>
 
-{/* Mobile Call Button */}
-<div className="lg:hidden flex items-center space-x-2">
-  <a 
-    href="tel:+918260506650" 
-    className="bg-red-500 text-black p-2 rounded-full hover:bg-red-400 transition-all duration-300 transform hover:scale-105"
-  >
-    <Phone size={20} />
-  </a>
-</div>
+              {/* Mobile Call & Order Buttons */}
+              <div className="lg:hidden flex items-center space-x-2">
+                <a
+                  href="tel:+918260506650"
+                  className="bg-red-500 text-black p-2 rounded-full hover:bg-red-400 transition-all duration-300 transform hover:scale-105"
+                >
+                  <Phone size={20} />
+                </a>
+                <a
+                  href="https://wa.me/917029252941?text=Hi%20Velvet%20%26%20Vine%2C%20I%27d%20like%20to%20place%20an%20order."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-red-600 text-white p-2 rounded-full hover:bg-red-500 transition-all duration-300 transform hover:scale-105"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                    <path d="M12 2C6.486 2 2 6.262 2 11.5c0 1.936.566 3.736 1.635 5.327L2 22l5.383-1.592C8.933 21.446 10.449 22 12 22c5.514 0 10-4.262 10-9.5S17.514 2 12 2Zm0 17c-1.373 0-2.73-.42-3.889-1.214l-.279-.186-3.19.944.938-3.02-.182-.292C4.502 13.935 4 12.749 4 11.5 4 7.916 7.364 5 12 5s8 2.916 8 6.5-3.364 7.5-8 7.5Zm4.422-4.133c-.242-.121-1.43-.703-1.651-.781-.221-.079-.382-.121-.543.121s-.623.781-.764.942-.28.18-.522.06c-.242-.121-1.024-.371-1.95-1.185-.72-.643-1.207-1.437-1.348-1.678-.14-.242-.015-.373.106-.494.109-.108.242-.28.362-.419.12-.14.161-.242.242-.403.08-.161.04-.302-.02-.423-.06-.121-.543-1.308-.744-1.789-.196-.47-.396-.406-.543-.413-.14-.007-.301-.009-.462-.009s-.422.06-.643.302c-.221.242-.843.824-.843 2.01s.864 2.332.984 2.494c.121.161 1.704 2.597 4.13 3.64.578.249 1.028.398 1.379.509.58.185 1.108.159 1.526.096.466-.069 1.43-.583 1.631-1.146.201-.563.201-1.045.141-1.146-.06-.101-.221-.161-.462-.282Z" />
+                  </svg>
+                </a>
+              </div>
 
               {/* Mobile Menu Button */}
               <button
@@ -332,7 +374,7 @@ function App() {
           </div>
 
           {/* Animated Title - White color */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 leading-tight animate-fade-in-up px-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] xl:text-[58px] font-bold text-white mb-3 md:mb-4 leading-tight md:leading-[1.15] animate-fade-in-up px-4">
             {heroSlides[currentSlide].title.split(' ').map((word, i) => (
               <span
                 key={i}
@@ -347,14 +389,14 @@ function App() {
             ))}
           </h1>
           {/* Subtitle - White color */}
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-6 md:mb-8 max-w-xl md:max-w-2xl lg:max-w-3xl animate-fade-in-up animation-delay-500 px-4">
+          <p className="text-base sm:text-lg md:text-xl lg:text-[22px] text-white mb-5 md:mb-6 max-w-xl md:max-w-2xl lg:max-w-3xl animate-fade-in-up animation-delay-500 px-4">
             {heroSlides[currentSlide].subtitle}
           </p>
 
           {/* CTA Button - Changed to red */}
-           <button 
+          <button 
              onClick={() => setShowMenuPage(true)}
-            className="bg-red-600 hover:bg-red-700 text-white px-8 md:px-12 py-3 md:py-4 rounded-full text-base md:text-lg font-bold transition-all duration-300 shadow-2xl hover:shadow-red-600/50 transform hover:scale-110 animate-fade-in-up animation-delay-700 uppercase tracking-wider"
+            className="bg-red-600 hover:bg-red-700 text-white px-6 md:px-7 py-2.5 md:py-2.5 rounded-full text-sm md:text-base font-bold transition-all duration-300 shadow-xl hover:shadow-red-600/50 transform hover:scale-105 animate-fade-in-up animation-delay-700 uppercase tracking-wide"
           >
             EXPLORE MENU 
           </button>
@@ -367,7 +409,7 @@ function App() {
           </div>
 
           {/* Slide Indicators - Changed to red */}
-          <div className="absolute bottom-10 md:bottom-10 left-1/2 -translate-x-1/2 flex space-x-3">
+          <div className="absolute bottom-10 md:bottom-8 left-1/2 -translate-x-1/2 flex space-x-3">
             {heroSlides.map((_, index) => (
               <button
                 key={index}
@@ -488,18 +530,10 @@ function App() {
                   className="flex items-center justify-between py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-300 rounded-lg px-4"
                 >
                   <div className="flex items-center flex-1">
-                    <div className="w-16 h-16 rounded-full overflow-hidden mr-4 flex-shrink-0">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold text-gray-800 mb-1">{item.name}</h3>
                       <p className="text-sm text-gray-500 italic">
-                        Authentic Indian breakfast served fresh and hot
+                        {breakfastSubtitles[index] ?? 'Authentic Indian breakfast served fresh and hot'}
                       </p>
                     </div>
                   </div>
@@ -547,10 +581,6 @@ function App() {
                 </p>
                 <div className="flex items-center space-x-8 mb-10">
                   <div className="text-center">
-                    <p className="text-4xl font-bold text-red-600 mb-2">5+</p>
-                    <p className="text-gray-600">Years</p>
-                  </div>
-                  <div className="text-center">
                     <p className="text-4xl font-bold text-red-600 mb-2">50+</p>
                     <p className="text-gray-600">Menu Items</p>
                   </div>
@@ -564,28 +594,19 @@ function App() {
                 <div className="mt-8">
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">About the Founders</h3>
                   <div className="flex flex-col md:flex-row md:space-x-8 space-y-6 md:space-y-0">
-                    <div className="flex items-center space-x-4">
-                      <img
-                       
-                        alt="David Rajput"
-                        className="w-16 h-16 rounded-full object-cover border-2 border-red-500"
-                      />
-                      <div>
-                        <p className="text-lg font-semibold text-gray-800">David Rajput</p>
-                        <p className="text-gray-600 text-sm">Co-Founder & Head Chef</p>
-                        <p className="text-gray-500 text-xs mt-1">David brings over 15 years of culinary experience and a passion for authentic flavors to Velvet & Vine.</p>
-                      </div>
+                    <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 shadow-sm">
+                      <p className="text-lg font-semibold text-gray-800">David Rajput</p>
+                      <p className="text-gray-600 text-sm">Founder  </p>
+                      <p className="text-gray-500 text-xs mt-2 leading-relaxed">
+                        David brings culinary experience and a passion for authentic flavors to Velvet & Vine.
+                      </p>
                     </div>
-                    <div className="flex items-center space-x-4">
-                      <img
-                        alt="Barsha Bhandari"
-                        className="w-16 h-16 rounded-full object-cover border-2 border-red-500"
-                      />
-                      <div>
-                        <p className="text-lg font-semibold text-gray-800">Barsha Bhandari</p>
-                        <p className="text-gray-600 text-sm">Co-Founder & Operations</p>
-                        <p className="text-gray-500 text-xs mt-1">Barsha ensures every guest feels at home, blending hospitality with a keen eye for detail and service.</p>
-                      </div>
+                    <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 shadow-sm">
+                      <p className="text-lg font-semibold text-gray-800">Barsha Bhandari</p>
+                      <p className="text-gray-600 text-sm">Co-Founder & Operations</p>
+                      <p className="text-gray-500 text-xs mt-2 leading-relaxed">
+                        Barsha ensures every guest feels at home, blending hospitality with a keen eye for detail and service.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -593,9 +614,9 @@ function App() {
 
               <div className="relative">
                 <img
-                  src="https://images.pexels.com/photos/1199957/pexels-photo-1199957.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt="About"
-                  className="w-full rounded-lg shadow-2xl"
+                  src="/M2sKshMbSqqkTuxP2bVeBQ.webp"
+                  alt="Velvet & Vine Restaurant Logo"
+                  className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
                 />
               </div>
             </div>
@@ -635,17 +656,68 @@ function App() {
                       <path d="M15 17h.01M9 17h.01M7 13h10M7 9h10" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-20 h-20 rounded-full border-4 border-yellow-500 shadow-lg mb-4 object-cover"
-                  />
-                  <div className="text-center">
+                  <div className="text-center mt-2">
                     <p className="text-xl font-bold text-white">{testimonial.name}</p>
                     <p className="text-gray-400">{testimonial.role}</p>
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="py-20 bg-[#FBF5EB]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="relative">
+              <div className="rounded-3xl overflow-hidden shadow-xl faq-image-primary">
+                <img
+                  src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=80"
+                  alt="Signature grilled platter at Velvet & Vine"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+            </div>
+
+            <div>
+              <p className="text-red-600 text-sm uppercase tracking-widest font-semibold mb-3">FAQs</p>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Some Frequently Asked Questions</h2>
+              <p className="text-gray-600 mb-8 max-w-xl">
+                Planning your visit to Velvet & Vine? Here are the answers to the questions our guests ask most about dining with us, celebrating special moments, and ordering from our kitchen.
+              </p>
+
+              <div className="space-y-4">
+                {faqs.map((faq, index) => {
+                  const isOpen = activeFaq === index;
+                  return (
+                    <div
+                      key={faq.question}
+                      className={`rounded-2xl border transition-all duration-300 ${
+                        isOpen ? 'border-red-300 bg-white shadow-lg' : 'border-transparent bg-white/80 hover:bg-white'
+                      }`}
+                    >
+                      <button
+                        onClick={() => toggleFaq(index)}
+                        className="w-full flex items-center justify-between px-6 py-5 text-left group"
+                        aria-expanded={isOpen}
+                      >
+                        <span className="text-lg md:text-xl font-semibold text-gray-900 pr-6">{faq.question}</span>
+                        <span className={`flex items-center justify-center w-10 h-10 rounded-full border border-red-300 text-red-500 transition-transform duration-300 group-hover:scale-110 group-hover:bg-red-50 ${isOpen ? 'bg-red-50' : ''}`}>
+                          {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                        </span>
+                      </button>
+                      {isOpen && (
+                        <div className="px-6 pb-6 -mt-2 text-gray-600 leading-relaxed">
+                          {faq.answer}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
@@ -749,7 +821,7 @@ function App() {
                   <MapPin className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
                   <div>
                     <p className="font-semibold text-gray-900">Address</p>
-                    <p className="text-gray-600">Salugarh, Siliguri, West Bengal 734008, India</p>
+                    <p className="text-gray-600">4th Floor, Home Square, near Salugara Monastery, Salugarh, Siliguri, West Bengal</p>
                   </div>
                 </div>
 
@@ -758,6 +830,7 @@ function App() {
                   <div>
                     <p className="font-semibold text-gray-900">Phone</p>
                     <p className="text-gray-600">+91-8260506650</p>
+                    <p className="text-gray-600">+91-7029252941</p>
                   </div>
                 </div>
 
@@ -772,11 +845,16 @@ function App() {
 
               <div className="mt-8">
                 <h4 className="font-semibold text-gray-900 mb-4">Opening Hours</h4>
-                <p className="text-gray-600">Monday - Sunday: 11:00 AM - 11:00 PM</p>
+                <p className="text-gray-600">Monday - Sunday: 06:00 AM - 09:00 PM</p>
               </div>
 
               <div className="flex space-x-4 mt-8">
-                <a href="#" className="bg-red-600 text-white p-3 rounded-full hover:bg-red-700 transition-colors">
+                <a
+                  href="https://www.instagram.com/velvet.vine_restaurant/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-red-600 text-white p-3 rounded-full hover:bg-red-700 transition-colors"
+                >
                   <Instagram size={20} />
                 </a>
                 <a href="mailto:official.valvetvine@gmail.com" className="bg-red-600 text-white p-3 rounded-full hover:bg-red-700 transition-colors">
@@ -788,13 +866,15 @@ function App() {
             <div>
               <div className="bg-gray-100 rounded-lg h-96">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3558.5!2d88.4!3d26.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDQyJzAwLjAiTiA4OMKwMjQnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3604.7504742445406!2d88.43252599999999!3d26.763439!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e441209b972e05%3A0x7902d56d088f2f07!2sHome%20Square!5e0!3m2!1sen!2sin!4v1730054400000!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   className="rounded-lg"
+                  title="Velvet & Vine Restaurant at Home Square"
+                  referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
             </div>
@@ -810,7 +890,7 @@ function App() {
               <img
                 src="/M2sKshMbSqqkTuxP2bVeBQ.webp"
                 alt="Velvet & Vine"
-                className="h-16 mb-4"
+                className="h-16 w-16 rounded-full object-cover mb-4"
               />
               <p className="text-gray-400 text-sm">
                 Where every meal is served with comfort.
@@ -831,19 +911,26 @@ function App() {
               <h4 className="font-bold mb-4">Contact</h4>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li>+91-8260506650</li>
-                <li>official.valvetvine@gmail.com</li>
-                <li>Salugarh, Siliguri</li>
-                <li>West Bengal 734008</li>
+                <li>+91-7029252941</li>
+                <li>official.velvetvine@gmail.com</li>
+                <li>4th Floor, Home Square</li>
+                <li>Near Salugara Monastery</li>
+                <li>Salugarh, Siliguri, West Bengal</li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-bold mb-4">Follow Us</h4>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a
+                  href="https://www.instagram.com/velvet.vine_restaurant/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   <Instagram size={24} />
                 </a>
-                <a href="mailto:official.valvetvine@gmail.com" className="text-gray-400 hover:text-white transition-colors">
+                <a href="mailto:official.velvetvine@gmail.com" className="text-gray-400 hover:text-white transition-colors">
                   <Mail size={24} />
                 </a>
               </div>
@@ -851,7 +938,18 @@ function App() {
           </div>
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2024 Velvet & Vine. All rights reserved.</p>
+            <p>&copy; 2025 Velvet & Vine. All rights reserved.</p>
+            <p className="mt-2">
+              Designed &amp; developed by{' '}
+              <a
+                href="https://www.linkedin.com/in/pmcharishmareddy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-red-400 hover:text-red-300 transition-colors"
+              >
+                pmcharishmareddy
+              </a>
+            </p>
           </div>
         </div>
       </footer>
@@ -911,6 +1009,12 @@ function App() {
         .animation-delay-700 {
           animation-delay: 0.7s;
           animation-fill-mode: both;
+        }
+
+        .faq-image-primary,
+        .faq-image-secondary,
+        .faq-image-tertiary {
+          animation: none;
         }
       `}</style>
     </div>

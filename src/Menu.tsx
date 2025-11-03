@@ -19,7 +19,6 @@ interface MenuProps {
 const Menu: React.FC<MenuProps> = ({ onBack }) => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [filterType, setFilterType] = useState('all'); // 'all', 'veg', 'non-veg'
-  const [searchTerm, setSearchTerm] = useState('');
 
   const handleBack = () => {
     if (onBack) {
@@ -251,11 +250,6 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
       items = items.filter(item => !item.isVeg);
     }
 
-    if (searchTerm.trim()) {
-      const query = searchTerm.trim().toLowerCase();
-      items = items.filter(item => item.name.toLowerCase().includes(query));
-    }
-
     return items;
   };
 
@@ -392,30 +386,6 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
               <span className="w-3 h-3 border border-red-500 bg-red-500 rounded-sm"></span>
               <span>Non-Vegetarian</span>
             </button>
-          </div>
-        </div>
-
-        {/* Search Bar */}
-        <div className="max-w-xl mx-auto mb-8">
-          <label htmlFor="menu-search" className="sr-only">Search menu items</label>
-          <div className="relative">
-            <input
-              id="menu-search"
-              type="search"
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="Search for a dish..."
-              className="w-full px-5 py-3 rounded-full border border-gray-300 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-yellow-600 transition"
-            />
-            {searchTerm && (
-              <button
-                type="button"
-                onClick={() => setSearchTerm('')}
-                className="absolute inset-y-0 right-4 my-auto text-sm text-gray-500 hover:text-gray-700"
-              >
-                Clear
-              </button>
-            )}
           </div>
         </div>
 

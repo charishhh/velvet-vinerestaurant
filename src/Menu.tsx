@@ -430,21 +430,23 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
               
               <div className="space-y-1">
                 {getFilteredItems().map((item, index) => (
-                  <div key={index} className="flex items-start sm:items-center justify-between py-3 sm:py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 active:bg-gray-100 transition-colors rounded-lg px-2 sm:px-3 md:px-4">
-                    <div className="flex items-start sm:items-center space-x-2 sm:space-x-3 md:space-x-4 flex-1">
-                      <div className="text-gray-500 font-medium min-w-[30px] sm:min-w-[40px] text-xs sm:text-sm">
+                  <div key={index} className="py-3 sm:py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 active:bg-gray-100 transition-colors rounded-lg px-2 sm:px-3 md:px-4">
+                    <div className="flex items-start space-x-2 sm:space-x-3 md:space-x-4">
+                      <div className="text-gray-500 font-medium min-w-[30px] sm:min-w-[40px] text-xs sm:text-sm flex-shrink-0">
                         {String(index + 1).padStart(2, '0')}.
                       </div>
                       
-                      <div className="flex-1">
-                        <div className="flex items-center flex-wrap gap-1.5 sm:gap-2 mb-1">
-                          <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900">{item.name}</h3>
-                          {item.isVeg !== undefined && (
-                            <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 border-2 ${item.isVeg ? 'border-green-500' : 'border-red-500'} rounded-sm flex items-center justify-center flex-shrink-0`}>
-                              <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 ${item.isVeg ? 'bg-green-500' : 'bg-red-500'} rounded-full`}></div>
-                            </div>
-                          )}
-                          <span className="text-base sm:text-lg md:text-xl font-bold text-orange-600 ml-auto">₹{item.price}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2 mb-1">
+                          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                            <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900">{item.name}</h3>
+                            {item.isVeg !== undefined && (
+                              <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 border-2 ${item.isVeg ? 'border-green-500' : 'border-red-500'} rounded-sm flex items-center justify-center flex-shrink-0`}>
+                                <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 ${item.isVeg ? 'bg-green-500' : 'bg-red-500'} rounded-full`}></div>
+                              </div>
+                            )}
+                          </div>
+                          <span className="text-base sm:text-lg md:text-xl font-bold text-orange-600 flex-shrink-0">₹{item.price}</span>
                         </div>
                         <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{getItemDescription(item)}</p>
                       </div>

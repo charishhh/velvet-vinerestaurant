@@ -430,8 +430,8 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
               
               <div className="space-y-1">
                 {getFilteredItems().map((item, index) => (
-                  <div key={index} className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-3 sm:py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 active:bg-gray-100 transition-colors rounded-lg px-2 sm:px-3 md:px-4">
-                    <div className="flex items-start sm:items-center space-x-2 sm:space-x-3 md:space-x-4 flex-1 mb-2 sm:mb-0">
+                  <div key={index} className="flex items-start sm:items-center justify-between py-3 sm:py-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 active:bg-gray-100 transition-colors rounded-lg px-2 sm:px-3 md:px-4">
+                    <div className="flex items-start sm:items-center space-x-2 sm:space-x-3 md:space-x-4 flex-1">
                       <div className="text-gray-500 font-medium min-w-[30px] sm:min-w-[40px] text-xs sm:text-sm">
                         {String(index + 1).padStart(2, '0')}.
                       </div>
@@ -444,15 +444,10 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
                               <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 ${item.isVeg ? 'bg-green-500' : 'bg-red-500'} rounded-full`}></div>
                             </div>
                           )}
+                          <span className="text-base sm:text-lg md:text-xl font-bold text-orange-600 ml-auto">₹{item.price}</span>
                         </div>
                         <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{getItemDescription(item)}</p>
                       </div>
-                    </div>
-
-                    <div className="hidden sm:flex flex-1 mx-3 md:mx-6 border-b border-dotted border-gray-300 min-w-[30px] md:min-w-[50px]"></div>
-
-                    <div className="text-left sm:text-right ml-8 sm:ml-0">
-                      <span className="text-base sm:text-lg md:text-xl font-bold text-orange-600">₹{item.price}</span>
                     </div>
                   </div>
                 ))}

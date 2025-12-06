@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 
 interface MenuItem {
@@ -16,7 +16,7 @@ interface MenuProps {
   onBack?: () => void;
 }
 
-const Menu: React.FC<MenuProps> = ({ onBack }) => {
+const Menu = ({ onBack }: MenuProps) => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [filterType, setFilterType] = useState('all'); // 'all', 'veg', 'non-veg'
 
@@ -60,6 +60,12 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
     { name: 'BBQ Chicken Sandwich', price: '220', isVeg: false },
     { name: 'Paneer Sandwich', price: '200', isVeg: true },
     { name: 'BBQ Paneer Sandwich', price: '220', isVeg: true },
+  ],
+
+  biryani: [
+    { name: 'Kolkata Dum Biryani', price: '250', isVeg: false },
+    { name: 'Awadhi Mutton Biryani', price: '350', isVeg: false },
+    { name: 'Egg Biryani', price: '120', isVeg: false },
   ],
 
   meals: [
@@ -157,6 +163,9 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
   'Nepali Chicken Thali': 'Traditional Nepali chicken thali with rice, gundruk, achar, and seasonal sides.',
     'Omelette Thali': 'Protein-packed omelette served with thali sides.',
     'Fish Thali': 'Regional fish curry thali with traditional condiments.',
+    'Kolkata Dum Biryani': 'Aromatic Kolkata-style biryani with tender chicken and potato.',
+    'Awadhi Mutton Biryani': 'Royal Awadhi mutton biryani slow-cooked with fragrant spices.',
+    'Egg Biryani': 'Flavorful egg biryani with boiled eggs and aromatic basmati.',
     'Veg Fried Rice': 'Wok-tossed rice with garden vegetables and soy.',
     'Mixed Fried Rice': 'Rice tossed with chicken, egg, and crunchy veggies.',
     'Chicken Fried Rice': 'Smoky fried rice loaded with diced chicken.',
@@ -211,6 +220,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
     { key: 'breakfast', label: 'Breakfast' },
     { key: 'soup', label: 'Soup' },
     { key: 'sandwich', label: 'Sandwich' },
+    { key: 'biryani', label: 'Biryani' },
     { key: 'meals', label: 'Meals' },
     { key: 'noodlesThukpa', label: 'Noodles & Thukpa' },
     { key: 'drinksCoffeeTea', label: 'Drinks, Coffee & Tea' },
@@ -259,12 +269,12 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
     }}>
       {/* Header */}
       <div className="bg-black shadow-sm sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 sm:space-x-4">
               <button 
                 onClick={handleBack}
-                className="p-2 hover:bg-gray-800 rounded-full transition-colors text-white active:scale-95"
+                className="p-2 hover:bg-gray-800 rounded-full transition-colors text-white active:scale-95 touch-manipulation"
               >
                 <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
@@ -272,7 +282,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
                 <img
                   src="/M2sKshMbSqqkTuxP2bVeBQ.webp"
                   alt="Velvet & Vine"
-                  className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full object-cover"
+                  className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14 rounded-full object-cover"
                 />
                 <div>
                   <h1 className="text-sm sm:text-lg md:text-xl font-bold text-white">Velvet & Vine</h1>
@@ -306,7 +316,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
                 href="https://wa.me/917029252941?text=Hi%20Velvet%20%26%20Vine%2C%20I%27d%20like%20to%20place%20an%20order."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                className="bg-green-500 hover:bg-green-600 text-white px-4 sm:px-6 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 touch-manipulation"
               >
                 Order via WhatsApp
               </a>
@@ -317,7 +327,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
 
       {/* Mobile contact & WhatsApp CTA */}
       <div className="lg:hidden bg-black text-white">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 space-y-2 sm:space-y-3">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4 space-y-2 sm:space-y-3">
           <div>
             <p className="text-red-500 text-xs sm:text-sm font-semibold uppercase tracking-wide">Call Now</p>
             <div className="text-xs sm:text-sm font-medium space-y-0.5">
@@ -333,22 +343,22 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
             href="https://wa.me/917029252941?text=Hi%20Velvet%20%26%20Vine%2C%20I%27d%20like%20to%20place%20an%20order."
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold transition-all duration-300 active:scale-95"
+            className="inline-flex items-center justify-center w-full bg-green-500 hover:bg-green-600 active:bg-green-700 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold transition-all duration-300 active:scale-95 touch-manipulation"
           >
             Order via WhatsApp
           </a>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 md:py-8">
         {/* Page Title */}
         <div className="text-center mb-4 sm:mb-6 md:mb-8">
-          <div className="flex items-center justify-center space-x-2 mb-2 sm:mb-3 md:mb-4">
+          <div className="flex items-center justify-center space-x-2 sm:space-x-3 mb-2 sm:mb-3 md:mb-4">
             <div className="h-px bg-gradient-to-r from-transparent via-yellow-600 to-transparent flex-1"></div>
-            <span className="text-yellow-600 text-xs sm:text-sm uppercase tracking-wider font-semibold">Menu List</span>
+            <span className="text-yellow-600 text-xs sm:text-sm md:text-base uppercase tracking-wider font-semibold">Menu List</span>
             <div className="h-px bg-gradient-to-r from-transparent via-yellow-600 to-transparent flex-1"></div>
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3 md:mb-4">Our Menu List</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-3 md:mb-4">Our Menu List</h1>
         </div>
 
         {/* Filter Buttons */}
@@ -356,7 +366,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
             <button
               onClick={() => setFilterType('all')}
-              className={`px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full text-sm sm:text-base font-medium transition-all active:scale-95 ${
+              className={`px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full text-sm sm:text-base font-medium transition-all active:scale-95 touch-manipulation ${
                 filterType === 'all' 
                 ? 'bg-green-500 text-white shadow-lg' 
                 : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
@@ -366,7 +376,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
             </button>
             <button
               onClick={() => setFilterType('veg')}
-              className={`px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full text-sm sm:text-base font-medium transition-all flex items-center space-x-1.5 sm:space-x-2 active:scale-95 ${
+              className={`px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full text-sm sm:text-base font-medium transition-all flex items-center space-x-1.5 sm:space-x-2 active:scale-95 touch-manipulation ${
                 filterType === 'veg' 
                 ? 'bg-green-500 text-white shadow-lg' 
                 : 'bg-white text-gray-700 border border-green-500 hover:bg-green-50'
@@ -377,7 +387,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
             </button>
             <button
               onClick={() => setFilterType('non-veg')}
-              className={`px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full text-sm sm:text-base font-medium transition-all flex items-center space-x-1.5 sm:space-x-2 active:scale-95 ${
+              className={`px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-full text-sm sm:text-base font-medium transition-all flex items-center space-x-1.5 sm:space-x-2 active:scale-95 touch-manipulation ${
                 filterType === 'non-veg' 
                 ? 'bg-red-500 text-white shadow-lg' 
                 : 'bg-white text-gray-700 border border-red-500 hover:bg-red-50'
@@ -390,12 +400,12 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
         </div>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-4 sm:mb-6 md:mb-8">
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 md:gap-3 mb-4 sm:mb-6 md:mb-8">
           {categories.map((category) => (
             <button
               key={category.key}
               onClick={() => handleCategoryChange(category.key)}
-              className={`px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg text-xs sm:text-sm md:text-base font-medium transition-all active:scale-95 ${
+              className={`px-3 sm:px-4 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg text-xs sm:text-sm md:text-base font-medium transition-all active:scale-95 touch-manipulation ${
                 activeCategory === category.key
                 ? 'bg-yellow-600 text-white shadow-lg'
                 : 'bg-white text-gray-700 hover:bg-yellow-50 active:bg-yellow-100 border border-gray-300'

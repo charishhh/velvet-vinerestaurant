@@ -272,7 +272,7 @@ const Menu: React.FC<MenuProps> = ({ onBack }) => {
                 <img
                   src="/M2sKshMbSqqkTuxP2bVeBQ.webp"
                   alt="Velvet & Vine"
-                  className="h-8 sm:h-10 md:h-12 w-auto"
+                  className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full object-cover"
                 />
                 <div>
                   <h1 className="text-sm sm:text-lg md:text-xl font-bold text-white">Velvet & Vine</h1>
